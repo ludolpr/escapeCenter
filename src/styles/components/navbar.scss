@@ -1,0 +1,44 @@
+.Navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: $secondText;
+    box-shadow: 0 7px 12px rgb(240, 253, 253);
+    height: 75px;
+    color: #fff;
+    flex-direction: row;
+    margin-bottom: 50px;
+}
+
+.Navbar a {
+    color: white;
+    text-decoration: none;
+}
+.mainTitle {
+    font-size: 25px;
+}
+.Logo {
+    font-size: 24px;
+}
+
+.NavLinks {
+    list-style-type: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+}
+
+.NavItem {
+    color: #fff;
+    text-decoration: none;
+    margin-left: 20px;
+    font-size: 18px;
+}
+
+.NavLinks ul {
+    text-decoration: none;
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: row;
+}

@@ -1,0 +1,14 @@
+body {
+    background-color: $primary40;
+    margin: 0;
+    padding: 0;
+    position: relative;
+    min-height: 100%;
+    max-height: auto;
+    height: 100vh;
+}
+
+.root {
+    height: 100vh;
+    position: relative;
+}
