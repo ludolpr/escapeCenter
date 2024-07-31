@@ -1,0 +1,18 @@
+.eventList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+  }
+  
+  .eventCard {
+    border: 1px solid $primary;
+    padding: 20px;
+    max-width: 300px;
+    text-align: left;
+  }
+  
+  .eventCard img {
+    width: 100%;
+    height: auto;
+  }

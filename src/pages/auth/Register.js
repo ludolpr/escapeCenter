@@ -24,7 +24,7 @@ const Register = () => {
 
     console.log("data send: ", data.picture[0]);
 
-    //  controle de la data envoyé
+    //  controle de la data qui est envoyé
     for (var pair of formData.entries()) {
       console.log(pair[0] + ", " + pair[1]);
     }
@@ -99,7 +99,6 @@ const Register = () => {
           <input
             type="file"
             {...register("picture_user", { required: "Image obligatoire" })}
-            // {...register("picture_user")}
           />
           {errors.picture && (
             <p className="error-message">{errors.picture.message}</p>

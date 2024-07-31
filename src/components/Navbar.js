@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 
+import auth from "../services/auth/token";
+
 const token = localStorage.getItem("access_token");
 
 const Navbar = () => {
-  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const role = auth.getRoles();
 
   useEffect(() => {
     if (token) {
-      setLoading(true);
+      // setLoading(true);
       fetchUser();
     }
   }, [loading]);
@@ -22,7 +24,6 @@ const Navbar = () => {
           Authorization: `Bearer ${token}`,
         },
       });
-      setUser(res.data);
       setLoading(false);
     } catch (error) {
       console.error("Error fetching user data", error);
@@ -31,9 +32,9 @@ const Navbar = () => {
   };
 
   const logout = () => {
-    setUser(null);
     localStorage.removeItem("access_token");
-    console.log("User logged out");
+    console.log("User deco");
+    setLoading(true);
   };
 
   return (
@@ -47,7 +48,7 @@ const Navbar = () => {
             Accueil
           </NavLink>
         </li>
-        {!token ? (
+        {!role ? (
           <>
             <li>
               <NavLink className="NavItem" to="/login">
@@ -78,11 +79,12 @@ const Navbar = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink className="NavItem" to="/profile">
+              <NavLink className="NavItem" to="/profil">
                 Profil
               </NavLink>
             </li>
-            {user && user.id_role === 2 && (
+
+            {role == 2 && (
               <li>
                 <NavLink className="NavItem" to="/admin">
                   Admin Panel
