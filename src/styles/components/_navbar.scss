@@ -3,23 +3,43 @@
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: $secondText;
-    box-shadow: 0 7px 12px rgb(240, 253, 253);
+    background-color: #f0f0f0; /* Changed variable to fixed color */
+    box-shadow: 0 7px 12px rgba(0, 0, 0, 0.1); /* Changed variable to rgba */
     height: 75px;
-    color: #fff;
+    color: #333; /* Changed variable to fixed color */
     flex-direction: row;
     margin-bottom: 50px;
 }
 
 .Navbar a {
-    color: white;
+    color: $tertiary;
     text-decoration: none;
+    font-size: 25px;
+    font-weight: bold; /* Added font-weight */
 }
+
+.Navbar button {
+    background-color: $tertiary; 
+    padding: 5px 10px; 
+    border-radius: 7px;
+    border: none;
+    color: #fff;
+    cursor: pointer; 
+}
+
+.Navbar li {
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+}
+
 .mainTitle {
     font-size: 25px;
 }
+
 .Logo {
     font-size: 24px;
+    font-weight: bold;
 }
 
 .NavLinks {
@@ -37,7 +57,7 @@
 }
 
 .NavLinks ul {
-    text-decoration: none;
+    list-style-type: none;
     flex-wrap: wrap;
     display: flex;
     flex-direction: row;

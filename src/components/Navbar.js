@@ -8,6 +8,8 @@ const token = localStorage.getItem("access_token");
 
 const Navbar = () => {
   const [loading, setLoading] = useState(false);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
   const role = auth.getRoles();
 
   useEffect(() => {
@@ -20,7 +22,9 @@ const Navbar = () => {
   const fetchUser = async () => {
     try {
       const res = await axios.get("http://127.0.0.1:8000/api/currentuser", {
+        withCredentials: true,
         headers: {
+          "Content-Type": "multipart/form-data",
           Authorization: `Bearer ${token}`,
         },
       });
@@ -37,11 +41,42 @@ const Navbar = () => {
     setLoading(true);
   };
 
+  const handleSearchChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleSearchSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const escapeGames = await axios.get(
+        `http://127.0.0.1:8000/api/escape_games?name_escape=${searchQuery}`
+      );
+      const arounds = await axios.get(
+        `http://127.0.0.1:8000/api/arounds?name_around=${searchQuery}`
+      );
+      setSearchResults([...escapeGames.data, ...arounds.data]);
+    } catch (error) {
+      console.error("Error searching data", error);
+    }
+  };
+
   return (
     <nav className="Navbar">
       <NavLink className="mainTitle" to="/">
         Escape center
       </NavLink>
+      {/* <form onSubmit={handleSearchSubmit} className="SearchForm">
+        <input
+          type="text"
+          value={searchQuery}
+          onChange={handleSearchChange}
+          placeholder="Rechercher..."
+          className="SearchInput"
+        />
+        <button type="submit" className="SearchButton">
+          Rechercher
+        </button>
+      </form> */}
       <ul className="NavLinks">
         <li>
           <NavLink className="NavItem" to="/">
@@ -99,6 +134,14 @@ const Navbar = () => {
           </>
         )}
       </ul>
+      {/* mapping de mon resultat de recherche */}
+      {searchResults.length > 0 && (
+        <ul className="SearchResults">
+          {searchResults.map((result) => (
+            <li key={result.id}>{result.name_escape || result.name_around}</li>
+          ))}
+        </ul>
+      )}
     </nav>
   );
 };

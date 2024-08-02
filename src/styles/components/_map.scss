@@ -1,6 +1,9 @@
 .topContainer{
-    width: auto;
+    width: 100%;
     height: auto;
+    // display: flex;
+    // flex-direction: row;
+    display: block;
     border-radius: 25px;
     border-color: $primary;
 }

@@ -1,6 +1,5 @@
 $primary: #A7A5A7;
-$primary40:#dfdfdf;
-
+$primary40: #dfdfdf;
 
 $secondary: #F3FFB9;
 $tertiary: #FF2A2A;
@@ -8,6 +7,31 @@ $tertiary: #FF2A2A;
 $bgwhite: white;
 $bgblack: black;
 
-// text
 $mainText: white;
 $secondText: black;
+
+@function adjust-lightness($color, $bgcolor) {
+  @if (lightness($bgcolor) > 50%) {
+    @return darken($color, 20%);
+  } @else {
+    @return lighten($color, 20%);
+  }
+}
+
+// background colors
+$adjusted-primary: adjust-lightness($primary, $bgwhite);
+$adjusted-primary40: adjust-lightness($primary40, $bgwhite);
+$adjusted-secondary: adjust-lightness($secondary, $bgwhite);
+$adjusted-tertiary: adjust-lightness($tertiary, $bgwhite);
+
+$adjusted-primary-dark: adjust-lightness($primary, $bgblack);
+$adjusted-primary40-dark: adjust-lightness($primary40, $bgblack);
+$adjusted-secondary-dark: adjust-lightness($secondary, $bgblack);
+$adjusted-tertiary-dark: adjust-lightness($tertiary, $bgblack);
+
+// text colors
+$adjusted-mainText: adjust-lightness($mainText, $bgwhite);
+$adjusted-secondText: adjust-lightness($secondText, $bgwhite);
+
+$adjusted-mainText-dark: adjust-lightness($mainText, $bgblack);
+$adjusted-secondText-dark: adjust-lightness($secondText, $bgblack);

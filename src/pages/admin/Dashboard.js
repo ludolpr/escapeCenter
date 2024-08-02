@@ -4,7 +4,6 @@ import AddCategoryForm from "./AddCategoryForm";
 import AddBlogForm from "./AddBlogForm";
 import AddEscapeForm from "./AddEscapeForm";
 import AddAroundForm from "./AddAroundForm";
-import AdminEdit from "./AdminEdit";
 import {
   getUsers,
   getRoles,

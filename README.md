@@ -9,3 +9,22 @@ Mon starter pack pour demarrer app en react télécharger le répos et faire -> 
 HAVE FUN !!
 
 sass --watch src/styles/index.scss:./src/styles/styles.css
+
+
+
+
+
+cord dans le backend faire ccette commande : 
+
+php artisan config:publish cors
+
+
+puis exemple de config : 
+
+const api = axios.create({
+  baseURL: "http://localhost:8000/api",
+  withCredentials: true,
+  headers: {
+    "Content-Type": "application/json",
+  },
+});

@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import AddCategoryForm from "./AddCategoryForm";
+import AddBlogForm from "./AddBlogForm";
 import AddEscapeForm from "./AddEscapeForm";
 import AddAroundForm from "./AddAroundForm";
 import {
@@ -24,6 +25,10 @@ import {
   getAround,
   updateAround,
   deleteAround,
+  getBlogs,
+  getBlog,
+  updateBlog,
+  deleteBlog,
 } from "./Services";
 
 const EntityList = ({ entity, data, onSelect }) => (
@@ -38,7 +43,8 @@ const EntityList = ({ entity, data, onSelect }) => (
               item.name_category_eg ||
               item.name_category_ar ||
               item.name_escape ||
-              item.name_around}
+              item.name_around ||
+              item.name_blog}
             <button onClick={() => onSelect(entity, item.id)}>Voir</button>
           </li>
         ))}
@@ -175,6 +181,32 @@ const EditSection = ({
             />
           </>
         );
+      case "blogs":
+        return (
+          <>
+            <label>Titre:</label>
+            <input
+              type="text"
+              name="name_blog"
+              value={data.name_blog || ""}
+              onChange={onChange}
+            />
+            <label>Description:</label>
+            <input
+              type="text"
+              name="description_blog"
+              value={data.description_blog || ""}
+              onChange={onChange}
+            />
+            <label>Image URL:</label>
+            <input
+              type="text"
+              name="picture_blog"
+              value={data.picture_blog || ""}
+              onChange={onChange}
+            />
+          </>
+        );
       default:
         return null;
     }
@@ -218,6 +250,7 @@ const AdminEdit = () => {
   const [categoryar, setCategoryar] = useState([]);
   const [escapes, setEscapes] = useState([]);
   const [around, setAround] = useState([]);
+  const [blogs, setBlogs] = useState([]);
 
   const [loading, setLoading] = useState(true);
   const [selectedEntity, setSelectedEntity] = useState(null);
@@ -234,6 +267,7 @@ const AdminEdit = () => {
           categoryarRes,
           escapesRes,
           aroundRes,
+          blogsRes,
         ] = await Promise.all([
           getUsers(),
           getRoles(),
@@ -241,6 +275,7 @@ const AdminEdit = () => {
           getCategoriesar(),
           getEscapes(),
           getArounds(),
+          getBlogs(),
         ]);
 
         setUsers(usersRes);
@@ -249,6 +284,7 @@ const AdminEdit = () => {
         setCategoryar(categoryarRes);
         setEscapes(escapesRes);
         setAround(aroundRes);
+        setBlogs(blogsRes);
       } catch (error) {
         console.error("Erreur lors de la récupération des données:", error);
       } finally {
@@ -294,6 +330,8 @@ const AdminEdit = () => {
         return getEscape(id);
       case "around":
         return getAround(id);
+      case "blogs":
+        return getBlog(id);
       default:
         throw new Error("Entity non reconnu");
     }
@@ -328,6 +366,8 @@ const AdminEdit = () => {
         return updateEscape(id, data);
       case "around":
         return updateAround(id, data);
+      case "blogs":
+        return updateBlog(id, data);
       default:
         throw new Error("Entity non reconnu");
     }
@@ -361,6 +401,8 @@ const AdminEdit = () => {
         return deleteEscape(id);
       case "around":
         return deleteAround(id);
+      case "blogs":
+        return deleteBlog(id);
       default:
         throw new Error("Entity non reconnu");
     }
@@ -385,6 +427,9 @@ const AdminEdit = () => {
         break;
       case "around":
         setAround(around.filter((theme) => theme.id !== id));
+        break;
+      case "blogs":
+        setBlogs(blogs.filter((blog) => blog.id !== id));
         break;
       default:
         break;
@@ -412,6 +457,7 @@ const AdminEdit = () => {
             "categoryar",
             "escape",
             "around",
+            "blogs",
           ].map((entity) => (
             <button
               key={entity}
@@ -430,6 +476,7 @@ const AdminEdit = () => {
         {selectedEntity === "categoryar" && (
           <AddCategoryForm entity="categoryar" />
         )}
+        {selectedEntity === "blogs" && <AddBlogForm />}
         {selectedEntity === "escape" && <AddEscapeForm />}
         {selectedEntity === "around" && <AddAroundForm />}
         {selectedEntity === "users" && (
@@ -457,6 +504,9 @@ const AdminEdit = () => {
         )}
         {selectedEntity === "around" && (
           <EntityList entity="around" data={around} onSelect={handleSelect} />
+        )}
+        {selectedEntity === "blogs" && (
+          <EntityList entity="blogs" data={blogs} onSelect={handleSelect} />
         )}
       </div>
       {selectedData && (

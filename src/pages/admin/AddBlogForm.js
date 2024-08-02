@@ -6,7 +6,7 @@ const AddBlogForm = () => {
     name_blog: "",
     description_blog: "",
     picture_blog: null,
-    id_user: "", // Initialisez avec une chaîne vide pour l'id de l'utilisateur
+    id_user: "",
   });
   const [users, setUsers] = useState([]);
 

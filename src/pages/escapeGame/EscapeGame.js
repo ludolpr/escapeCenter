@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import FormEscape from "./FormEscape";
+import BasicMap from "../../components/BasicMap";
 
 const baseURL = "http://127.0.0.1:8000/api/escape";
 
@@ -8,18 +9,12 @@ const EscapeGame = () => {
   const [escapes, setEscapes] = React.useState([]);
   const [loading, setLoading] = React.useState(true);
   const [error, setError] = React.useState(null);
-  // Ajout pour les données brutes
-  const [rawData, setRawData] = React.useState(null);
 
   React.useEffect(() => {
     axios
       .get(baseURL)
       .then((response) => {
-        // Log des données reçues ci dessous
-        // console.log("Données reçues:", response.data);
         setEscapes(response.data);
-        // Mise à jour des données brutes
-        setRawData(response.data);
         setLoading(false);
       })
       .catch((error) => {
@@ -38,18 +33,18 @@ const EscapeGame = () => {
         {escapes.length > 0 ? (
           escapes.map((escape) => (
             <div key={escape.id} className="escapeItem">
-              <p>
-                <h2 className="escapeTitle">Titre :{escape.name_escape}</h2>
-              </p>
+              <h2 className="escapeTitle">Titre :{escape.name_escape}</h2>
               <p>Description: {escape.description_escape}</p>
-              <img src={escape.picture_escape} alt={escape.name_escape} />
+              <img
+                src={`http://127.0.0.1:8000/storage/uploads/escapes/${escape.picture_escape}`}
+                alt={escape.name_escape}
+              />
               <p>
-                <strong>Adresse:</strong> {escape.address_escape},
+                <strong>Adresse:</strong> {escape.address_escape}
               </p>
               <p>
                 <strong>Ville:</strong> {escape.town_escape}
               </p>
-
               <p>
                 <strong>Code postal:</strong> {escape.zipcode_escape}
               </p>

@@ -19,17 +19,34 @@ body {
   justify-content: space-between;
   align-items: center;
   padding: 10px 20px;
-  background-color: black;
-  box-shadow: 0 7px 12px rgb(240, 253, 253);
+  background-color: #f0f0f0; /* Changed variable to fixed color */
+  box-shadow: 0 7px 12px rgba(0, 0, 0, 0.1); /* Changed variable to rgba */
   height: 75px;
-  color: #fff;
+  color: #333; /* Changed variable to fixed color */
   flex-direction: row;
   margin-bottom: 50px;
 }
 
 .Navbar a {
-  color: white;
+  color: #FF2A2A;
   text-decoration: none;
+  font-size: 25px;
+  font-weight: bold; /* Added font-weight */
+}
+
+.Navbar button {
+  background-color: #FF2A2A;
+  padding: 5px 10px;
+  border-radius: 7px;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+}
+
+.Navbar li {
+  margin-top: 5px;
+  display: flex;
+  align-items: center;
 }
 
 .mainTitle {
@@ -38,6 +55,7 @@ body {
 
 .Logo {
   font-size: 24px;
+  font-weight: bold;
 }
 
 .NavLinks {
@@ -55,7 +73,7 @@ body {
 }
 
 .NavLinks ul {
-  text-decoration: none;
+  list-style-type: none;
   flex-wrap: wrap;
   display: flex;
   flex-direction: row;
@@ -67,13 +85,15 @@ footer {
   bottom: 0;
   width: 100%;
   height: 3.5rem;
-  background-color: black;
-  color: white;
+  background-color: #f0f0f0;
   text-align: center;
   justify-content: center;
   box-shadow: 0 -7px 12px rgb(240, 253, 253);
   margin-top: 100px;
   padding: "10px";
+}
+footer p {
+  color: #FF2A2A;
 }
 
 .escapeForm, .aroundForm {
@@ -113,19 +133,10 @@ footer {
   background-color: #A7A5A7;
 }
 
-.escapeGame, .aroundGame {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-.escapeGame .escapeTitle, .aroundGame .escapeTitle {
-  font-size: 25px;
-}
-
 .topContainer {
-  width: auto;
+  width: 100%;
   height: auto;
+  display: block;
   border-radius: 25px;
   border-color: #A7A5A7;
 }
@@ -226,6 +237,121 @@ footer {
 .eventCard img {
   width: 100%;
   height: auto;
+}
+
+.mainContent {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.title {
+  text-align: center;
+  color: #FF2A2A;
+  font-size: 50px;
+}
+
+.firstContainer {
+  display: flex;
+  justify-content: space-around;
+  width: 100%;
+  flex-wrap: wrap;
+}
+
+.secondContainer {
+  width: 100%;
+}
+
+.leftContainer {
+  display: flex;
+  flex-direction: column;
+  margin: 20px;
+  padding: 20px;
+  width: 45%;
+  background-color: #FF2A2A;
+  border-radius: 30px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.leftContainer img {
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+.leftContainer p {
+  color: white;
+}
+
+.topContainer {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: auto;
+  justify-content: center;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.rightContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45%;
+  margin: 20px;
+}
+.rightContainer img {
+  max-width: 100%;
+  border-radius: 8px;
+}
+
+.botContainer {
+  background-color: #FF2A2A;
+  border-radius: 30px;
+  padding: 20px;
+  width: 100%;
+  color: white;
+}
+.botContainer h2 {
+  color: white;
+}
+.botContainer p {
+  color: white;
+}
+
+ul {
+  list-style-type: disc;
+  margin-left: 20px;
+}
+
+h2 {
+  color: #333;
+}
+
+p {
+  color: #666;
+}
+
+.body {
+  font-size: 24px;
+}
+@media (min-width: 576px) {
+  .body {
+    font-size: 28px;
+  }
+}
+@media (min-width: 992px) {
+  .body {
+    font-size: 32px;
+  }
+}
+@media (min-width: 1200px) {
+  .body {
+    font-size: 36px;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */

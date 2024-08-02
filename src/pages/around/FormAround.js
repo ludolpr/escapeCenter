@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useForm } from "react-hook-form";
@@ -10,6 +10,24 @@ const FormAround = () => {
     formState: { errors },
   } = useForm();
   const navigate = useNavigate();
+  const [categories, setCategories] = useState([]);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await axios.get(
+          "http://localhost:8000/api/categoryar"
+        );
+        setCategories(response.data);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des catégories", error);
+      }
+    };
+
+    fetchCategories();
+  }, []);
 
   const onSubmit = async (data) => {
     const formData = new FormData();
@@ -21,29 +39,28 @@ const FormAround = () => {
     formData.append("zipcode_around", data.zipcode_around);
     formData.append("lat_around", data.lat_around);
     formData.append("long_around", data.long_around);
-    formData.append("id_category_ag", data.id_category_ag);
+    formData.append("id_category_ar", data.id_category_ar);
 
     try {
-      const response = await axios.post(
-        "http://localhost:800/api/around",
-        formData,
-        {
-          headers: { "Content-Type": "multipart/form-data" },
-        }
-      );
+      await axios.post("http://localhost:8000/api/around", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      setSuccessMessage("Envoi réussi !");
+      setErrorMessage("");
       navigate("/around");
     } catch (error) {
-      console.error("Erreur lors de l'envoie d'un around game", error);
-      alert(
-        "Erreur lors de l'envoie d'un around game: " +
+      console.error("Erreur lors de l'envoi d'un around game", error);
+      setErrorMessage(
+        "Erreur lors de l'envoi d'un around game: " +
           (error.response?.data?.message || error.message)
       );
+      setSuccessMessage("");
     }
   };
 
   return (
     <div className="aroundForm">
-      <h1>Partager un bar, restaurent , autres</h1>
+      <h1>Partager un bar, restaurant, autres</h1>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div>
           <label>Nom: </label>
@@ -133,18 +150,25 @@ const FormAround = () => {
         </div>
         <div>
           <label>Catégorie: </label>
-          <input
-            type="text"
-            {...register("id_category_ag", {
+          <select
+            {...register("id_category_ar", {
               required: "Catégorie obligatoire",
             })}
-          />
-          {errors.id_category_ag && (
-            <p className="error-message">{errors.id_category_ag.message}</p>
+          >
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name_category_ar}
+              </option>
+            ))}
+          </select>
+          {errors.id_category_ar && (
+            <p className="error-message">{errors.id_category_ar.message}</p>
           )}
         </div>
         <button type="submit">Envoyé</button>
       </form>
+      {successMessage && <p className="success-message">{successMessage}</p>}
+      {errorMessage && <p className="error-message">{errorMessage}</p>}
     </div>
   );
 };

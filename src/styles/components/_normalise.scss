@@ -1,0 +1,30 @@
+$breakpoint-small: 576px;
+$breakpoint-medium: 768px;
+$breakpoint-large: 992px;
+$breakpoint-xlarge: 1200px;
+
+@mixin responsive-font($small, $medium, $large, $xlarge) {
+  font-size: $small;
+
+  @media (min-width: $breakpoint-small) {
+    font-size: $medium;
+  }
+
+  @media (min-width: $breakpoint-large) {
+    font-size: $large;
+  }
+
+  @media (min-width: $breakpoint-xlarge) {
+    font-size: $xlarge;
+  }
+}
+
+
+
+.body {
+  @include responsive-font(24px, 28px, 32px, 36px);
+}
+
+
+
+
